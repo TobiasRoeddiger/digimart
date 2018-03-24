@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UiScript : MonoBehaviour {
 
@@ -86,32 +88,52 @@ public class UiScript : MonoBehaviour {
 
         foreach (var entry in _currentModule.Form.GetEntries())
         {
+            Component preset = null;
+            Component obj = null;
             switch (entry.Type)
             {
                 case FormEntryType.Label:
-                    var preset = GetComponent("LabelPreset");
-                    //var obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
-                    //
+                    preset = GetComponent("LabelPreset");
+                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
+                    (obj as Text).text = entry.Label;
                     break;
                 case FormEntryType.TextField:
-
+                    preset = GetComponent("InputPreset");
+                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
+                    (obj as InputField).onValueChanged.AddListener((v) => { entry.Value = v; }); 
                     break;
                 case FormEntryType.Button:
-
+                    preset = GetComponent("ButtonPreset");
+                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
+                    obj.GetComponentInChildren<Text>().text = entry.Label;
                     break;
                 case FormEntryType.Checkbox:
-
+                    preset = GetComponent("CheckboxPreset");
+                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
+                    obj.GetComponentInChildren<Text>().text = entry.Label;
+                    (obj as Toggle).onValueChanged.AddListener((v) => { entry.Value = v.ToString(); });
                     break;
                 case FormEntryType.Line:
-
+                    preset = GetComponent("LinePreset");
+                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
                     break;
                 case FormEntryType.Select:
-
+                    preset = GetComponent("SelectPreset");
+                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
+                    // TODO: fill chilren
+                    (obj as Dropdown).onValueChanged.AddListener((v) => { entry.Value = (entry as Select).Dictionary.Values.ToList()[v]; });
                     break;
                 case FormEntryType.Slider:
-
+                    preset = GetComponent("SliderPreset");
+                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
+                    (obj as Slider).minValue = (float) (entry as FormSlider).Min;
+                    (obj as Slider).maxValue = (float) (entry as FormSlider).Max;
+                    (obj as Slider).onValueChanged.AddListener((v) => { entry.Value = v; });
                     break;
+                default:
+                    continue;
             }
+            bottomOfFormPosition.y -= (preset as RectTransform).sizeDelta[1] - 10;
         }
     }
 
