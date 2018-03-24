@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.iOS;
+using System.Linq;
 
 public class GenerateImageAnchor : MonoBehaviour {
 
+	private ProductStore _store = new ProductStore();
+	private IDigiModule _digiModule = new InterpolatingModule ();
+	private Product _product;
 
 	[SerializeField]
 	private ARReferenceImage referenceImage;
@@ -19,7 +23,8 @@ public class GenerateImageAnchor : MonoBehaviour {
 		UnityARSessionNativeInterface.ARImageAnchorAddedEvent += AddImageAnchor;
 		UnityARSessionNativeInterface.ARImageAnchorUpdatedEvent += UpdateImageAnchor;
 		UnityARSessionNativeInterface.ARImageAnchorRemovedEvent += RemoveImageAnchor;
-
+		_product = _store.GetProducts().Where(x => x.ImageName == prefabToGenerate.name).FirstOrDefault();
+		Debug.Log (_product.ImageName);
 	}
 
 	void AddImageAnchor(ARImageAnchor arImageAnchor)
@@ -31,6 +36,7 @@ public class GenerateImageAnchor : MonoBehaviour {
 
 			imageAnchorGO = Instantiate<GameObject> (prefabToGenerate, position, rotation);
 		}
+		UpdateColor ();
 	}
 
 	void UpdateImageAnchor(ARImageAnchor arImageAnchor)
@@ -40,7 +46,7 @@ public class GenerateImageAnchor : MonoBehaviour {
 			imageAnchorGO.transform.position = UnityARMatrixOps.GetPosition (arImageAnchor.transform);
 			imageAnchorGO.transform.rotation = UnityARMatrixOps.GetRotation (arImageAnchor.transform);
 		}
-
+		UpdateColor ();
 	}
 
 	void RemoveImageAnchor(ARImageAnchor arImageAnchor)
@@ -62,6 +68,15 @@ public class GenerateImageAnchor : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
+	}
+
+	void UpdateColor() {
+		if (_product == null)
+			return;
+
+		var color = _digiModule.Filter.CalculateOverlayColor (_product);
+		Debug.Log(imageAnchorGO.GetComponent<Renderer> () == null);
+
+		imageAnchorGO.GetComponent<Renderer> ().material.SetColor ("_Color", color);
 	}
 }
