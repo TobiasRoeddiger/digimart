@@ -6,6 +6,7 @@
 
     public SearchModule()
     {
+        CreateFilterForSearchTerm("----");
         FillForm();
     }
 

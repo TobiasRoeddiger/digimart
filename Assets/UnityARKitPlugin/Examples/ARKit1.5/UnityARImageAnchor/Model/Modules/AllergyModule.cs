@@ -15,6 +15,7 @@ class AllergyModule : IDigiModule
 
     public AllergyModule()
     {
+        CreateFilterForSelectors(new List<Func<Product, bool>>());
         FillForm();
     }
 
