@@ -8,8 +8,8 @@ public class AllergyFilter : IDigiFilter
 {
     private IList<Func<Product, bool>> _propertySelectors { get; set; }
 
-    private static readonly Color _GOOD_COLOR = new Color(50, 209, 84, 255);
-    private static readonly Color _NOTGOOD_COLOR = new Color(209, 71, 50, 25);
+    private static readonly Color _GOOD_COLOR = new Color(0.2f, 0.82f, 0.33f, 0.1f);
+    private static readonly Color _NOTGOOD_COLOR = new Color(0.82f, 0.28f, 0.2f, 0.6f);
     
     public AllergyFilter(IList<Func<Product, bool>> propertySelectors)
     {

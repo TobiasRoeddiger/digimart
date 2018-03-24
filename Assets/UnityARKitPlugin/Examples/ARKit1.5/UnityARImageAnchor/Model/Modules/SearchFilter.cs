@@ -8,8 +8,8 @@ public class SearchFilter : IDigiFilter
 {
     private string[] _tags { get; set; }
 
-    private static readonly Color _FOUND_COLOR = new Color(50, 209, 84, 255);
-    private static readonly Color _NOTFOUND_COLOR = new Color(209, 71, 50, 25);
+    private static readonly Color _FOUND_COLOR = new Color(0.2f, 0.82f, 0.33f, 0.6f);
+    private static readonly Color _NOTFOUND_COLOR = new Color(0.82f, 0.28f, 0.2f, 0.1f);
 
     private static readonly IList<Func<Product, string>> _SELECTORS = new List<Func<Product,string>>()
     {
