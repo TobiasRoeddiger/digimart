@@ -6,6 +6,7 @@
 
     public SearchModule()
     {
+        CreateFilterForSearchTerm("----");
         FillForm();
     }
 
@@ -27,10 +28,5 @@
         Form = new Form();
         Form.Add(new FormEntry(FormEntryType.Label, "Search Terms"), "SearchLabel");
         Form.Add(new FormEntry(FormEntryType.TextField), "Search");
-
-        Form.Add(new FormEntry(FormEntryType.Line));
-
-        Form.Add(new FormEntry(FormEntryType.Button, "Save"), "SaveButton");
-        Form.Add(new FormEntry(FormEntryType.Button, "Cancel"), "CancelButton");
     }
 }
