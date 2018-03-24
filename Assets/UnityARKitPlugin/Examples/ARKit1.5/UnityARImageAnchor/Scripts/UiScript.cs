@@ -6,8 +6,8 @@ public class UiScript : MonoBehaviour {
 
     private IDigiModule _currentModule = new SearchModule();
 
-    private float _lerpTime;
-    private float _currentLerpTime;
+    private float _lerpTime = 1f;
+    private float _currentLerpTime = 1f;
     private Vector3 _formTopPosition;
     private Vector3 _formBottomPosition;
     private Vector3 _formStartPosition;
@@ -16,9 +16,9 @@ public class UiScript : MonoBehaviour {
     // Use this for initialization
     void Start ()
 	{
-	    foreach (var renderer in GetComponent("ObjectStore").GetComponentsInChildren<Renderer>())
+	    foreach (Transform child in transform)
 	    {
-	        renderer.enabled = false;
+	        child.gameObject.SetActive(false);
 	    }
 	    _formBottomPosition = GetComponent("FormPanel").transform.position;
 	    _formTopPosition = _formBottomPosition + new Vector3(0, 375, 0);
@@ -32,10 +32,13 @@ public class UiScript : MonoBehaviour {
 	    {
 	        _currentLerpTime = _lerpTime;
 	    }
-
-	    //lerp Form panel
-	    var perc = _currentLerpTime / _lerpTime;
-	    transform.position = Vector3.Lerp(_formStartPosition, _formEndPosition, perc);
+	    else
+	    {
+	        //lerp Form panel
+	        var t = _currentLerpTime / _lerpTime;
+	        t = t * t * (3f - 2f * t);
+	        transform.position = Vector3.Lerp(_formStartPosition, _formEndPosition, t);
+        }
     }
 
     public void AdButton_OnClick(string sceneName)
@@ -75,9 +78,38 @@ public class UiScript : MonoBehaviour {
         if (formObject == null)
             return;
 
-        _currentLerpTime = 0f;
         _formStartPosition = _formBottomPosition;
         _formEndPosition = _formTopPosition;
+        _currentLerpTime = 0f;
+
+        foreach (var entry in _currentModule.Form.GetEntries())
+        {
+            switch (entry.Type)
+            {
+                case FormEntryType.Label:
+                    var preset = GetComponent("LabelPreset");
+                    //var obj = Instantiate(preset, formObject.transform, )
+                    break;
+                case FormEntryType.TextField:
+
+                    break;
+                case FormEntryType.Button:
+
+                    break;
+                case FormEntryType.Checkbox:
+
+                    break;
+                case FormEntryType.Line:
+
+                    break;
+                case FormEntryType.Select:
+
+                    break;
+                case FormEntryType.Slider:
+
+                    break;
+            }
+        }
     }
 
     public void CloseForm()
@@ -86,8 +118,8 @@ public class UiScript : MonoBehaviour {
         if (formObject == null)
             return;
         
-        _currentLerpTime = 0f;
         _formStartPosition = _formTopPosition;
         _formEndPosition = _formBottomPosition;
+        _currentLerpTime = 0f;
     }
 }
