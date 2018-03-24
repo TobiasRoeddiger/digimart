@@ -30,7 +30,6 @@ public class GenerateImageAnchor : MonoBehaviour {
 
 	void AddImageAnchor(ARImageAnchor arImageAnchor)
 	{
-		Debug.Log ("image anchor added");
 		if (arImageAnchor.referenceImageName == referenceImage.imageName) {
 			if (prefabToGenerate.name == "RiegelAd") {
 				Vector3 position = UnityARMatrixOps.GetPosition (arImageAnchor.transform);

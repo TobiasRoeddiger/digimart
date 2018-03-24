@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+//using DG.Tweening;
 
 public class UiScript : MonoBehaviour {
 
@@ -59,8 +59,8 @@ public class UiScript : MonoBehaviour {
         if (formObject == null)
             return;
         
-        formObject.transform.DoMove(formObject.transform.position + new Vector3(0, 375, 0), 1f)
-            .SetEase(Ease.EaseInOutCubic).SetDelay(0f);
+		/*formObject.transform.DOMove(formObject.transform.position + new Vector3(0, 375, 0), 1f)
+			.SetEase(Ease.InOutElastic).SetDelay(0f);*/
     }
 
     public void CloseForm()
@@ -69,7 +69,7 @@ public class UiScript : MonoBehaviour {
         if (formObject == null)
             return;
 
-        formObject.transform.DoMove(formObject.transform.position + new Vector3(0, -375, 0), 1f)
-            .SetEase(Ease.EaseInOutCubic).SetDelay(0f);
+        /*formObject.transform.DOMove(formObject.transform.position + new Vector3(0, -375, 0), 1f)
+			.SetEase(Ease.InOutElastic).SetDelay(0f);*/
     }
 }
