@@ -18,8 +18,5 @@
     
     private void FillForm()
     {
-        Form = new Form();
-        Form.Add(new FormEntry(FormEntryType.Button, "Save"), "SaveButton");
-        Form.Add(new FormEntry(FormEntryType.Button, "Cancel"), "CancelButton");
     }
 }

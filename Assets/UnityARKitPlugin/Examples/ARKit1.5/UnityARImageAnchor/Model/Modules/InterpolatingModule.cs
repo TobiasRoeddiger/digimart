@@ -37,9 +37,5 @@
         select.Add("Salt", "Salt");
         select.Add("Price", "Price");
         Form.Add(select, "PropertySelect");
-
-        Form.Add(new FormEntry(FormEntryType.Line));
-        Form.Add(new FormEntry(FormEntryType.Button, "Save"), "SaveButton");
-        Form.Add(new FormEntry(FormEntryType.Button, "Cancel"), "CancelButton");
     }
 }

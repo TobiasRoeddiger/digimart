@@ -45,10 +45,5 @@ class AllergyModule : IDigiModule
         Form.Add(new FormEntry(FormEntryType.Label, "Allergies"), "AllergyLabel");
         Form.Add(new FormEntry(FormEntryType.Checkbox, "Milk"), "Milk");
         Form.Add(new FormEntry(FormEntryType.Checkbox, "Nuts"), "Nuts");
-
-        Form.Add(new FormEntry(FormEntryType.Line));
-
-        Form.Add(new FormEntry(FormEntryType.Button, "Save"), "SaveButton");
-        Form.Add(new FormEntry(FormEntryType.Button, "Cancel"), "CancelButton");
     }
 }
