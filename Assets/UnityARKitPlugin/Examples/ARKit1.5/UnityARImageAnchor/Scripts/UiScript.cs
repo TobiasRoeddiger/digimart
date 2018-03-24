@@ -82,13 +82,16 @@ public class UiScript : MonoBehaviour {
         _formEndPosition = _formTopPosition;
         _currentLerpTime = 0f;
 
+        var bottomOfFormPosition = formObject.transform.position;
+
         foreach (var entry in _currentModule.Form.GetEntries())
         {
             switch (entry.Type)
             {
                 case FormEntryType.Label:
                     var preset = GetComponent("LabelPreset");
-                    //var obj = Instantiate(preset, formObject.transform, )
+                    //var obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
+                    //
                     break;
                 case FormEntryType.TextField:
 
