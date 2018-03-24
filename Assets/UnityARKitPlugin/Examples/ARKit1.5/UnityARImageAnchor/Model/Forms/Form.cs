@@ -5,14 +5,17 @@ public class Form
 {
     public IDictionary<string, FormEntry> Entries { get; private set; }
 
+    private Random R;
+
     public Form()
     {
         Entries = new Dictionary<string, FormEntry>();
+        R = new Random();
     }
 
     public void Add(FormEntry entry, string name = null)
     {
-        name = name ?? (new Random()).Next(100000, 10000000).ToString("X");
+        name = name ?? R.Next(100000, 10000000).ToString("X");
         Entries.Add(name, entry);
     }
 
