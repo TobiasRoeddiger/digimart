@@ -158,7 +158,11 @@ public class UiScript : MonoBehaviour {
                 case FormEntryType.Select:
 					preset = GameObject.Find("SelectPreset");
                     obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), parent);
-                    // TODO: fill chilren
+                    (obj.GetComponent<Dropdown>()).options.Clear();
+                    foreach (var pair in (entry as Select).Dictionary)
+                    {
+                        (obj.GetComponent<Dropdown>()).options.Add(new Dropdown.OptionData(entry.Value));
+                    }
 				    (obj.GetComponent<Dropdown>()).onValueChanged.AddListener((v) => { entry.Value = (entry as Select).Dictionary.Values.ToList()[v]; FormSaveButton_OnClick(); });
                     break;
                 case FormEntryType.Slider:

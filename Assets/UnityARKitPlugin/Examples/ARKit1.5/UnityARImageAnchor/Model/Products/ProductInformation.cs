@@ -16,11 +16,11 @@ public partial class Product
     public bool ContainsNuts { get; set; }
 
     public static Dictionary<string, Range> Ranges = new Dictionary<string, Range>() {
-        { "Calories", new Range() { Min = 300, Max = 420 } },
-        { "Fat", new Range() { Min = 0, Max = 20 } },
-        { "Salt", new Range() { Min = 0, Max = 1 } },
+        { "Calories", new Range() { Min = 330, Max = 420 } },
+        { "Fat", new Range() { Min = 5, Max = 18 } },
+        { "Salt", new Range() { Min = 0, Max = 0.7 } },
         { "Sugar", new Range() { Min = 5, Max = 50 } },
-        { "Price", new Range() { Min = 0.4, Max = 2 } },
+        { "Price", new Range() { Min = 0.5, Max = 2 } },
     };
 
     public static Func<Product, double> GetPropertySelector(string propertyName)

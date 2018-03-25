@@ -7,8 +7,8 @@ public class InterpolatingFilter : IDigiFilter
     private double _min { get; set; }
     private double _max { get; set; }
 
-    private static readonly Color MIN_COLOR = new Color(0.2f, 0.82f, 0.33f, 0.7f);
-    private static readonly Color MAX_COLOR = new Color(0.82f, 0.28f, 0.2f, 0.7f);
+    private static readonly Color MIN_COLOR = new Color(0.36f, 0.98f, 0.24f, 0.8f);
+    private static readonly Color MAX_COLOR = new Color(0.98f, 0.3f, 0.25f, 0.8f);
 
     public InterpolatingFilter(Func<Product, double> propertySelector, double min, double max)
     {
@@ -25,7 +25,7 @@ public class InterpolatingFilter : IDigiFilter
 
         a = a < 0 ? 0 : a;
         a = a > 1 ? 1 : a;
-
+        
         var color = new Color(
             InterpolateComponent(MIN_COLOR.r, MAX_COLOR.r, a),
             InterpolateComponent(MIN_COLOR.g, MAX_COLOR.g, a),
