@@ -109,7 +109,7 @@ public class UiScript : MonoBehaviour {
 
         // access container for dynamic entries
         var parent = GameObject.Find("DynFormContainer").transform;
-        var formOffset = new Vector2(0, parent.GetComponent<RectTransform>().rect.height);
+        var formOffset = new Vector2(0, 0);
 
         // remove old form entries
         foreach (Transform child in parent)
