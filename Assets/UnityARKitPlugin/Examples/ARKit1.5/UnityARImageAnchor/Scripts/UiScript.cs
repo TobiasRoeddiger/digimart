@@ -19,9 +19,9 @@ public class UiScript : MonoBehaviour {
     // Use this for initialization
     void Start ()
 	{
-		var fp = GameObject.Find ("FormPanel").GetComponent<RectTransform> ().anchoredPosition;
-		_formBottomPosition = fp;
-		_formTopPosition = new Vector2(fp.x, fp.y + 100);
+		var fp = GameObject.Find ("FormPanel").GetComponent<RectTransform> ();
+		_formBottomPosition = fp.anchoredPosition;
+		_formTopPosition = _formBottomPosition + new Vector2(0, fp.rect.height);
 	}
 	
 	// Update is called once per frame
@@ -74,7 +74,6 @@ public class UiScript : MonoBehaviour {
     public void FormSaveButton_OnClick(string sceneName = null)
     {
         _currentModule.ApplyForm();
-        CloseForm();
     }
     public void FormCancelButton_OnClick(string sceneName = null)
     {
@@ -110,7 +109,7 @@ public class UiScript : MonoBehaviour {
 
         // access container for dynamic entries
         var parent = GameObject.Find("DynFormContainer").transform;
-        var bottomOfFormPosition = parent.position;
+        var formOffset = new Vector2(0, parent.GetComponent<RectTransform>().rect.height);
 
         // remove old form entries
         foreach (Transform child in parent)
@@ -132,42 +131,41 @@ public class UiScript : MonoBehaviour {
             {
                 case FormEntryType.Label:
 					preset = GameObject.Find("LabelPreset");
-                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), parent);
+                    obj = Instantiate(preset, preset.transform.position, new Quaternion(), parent);
 					(obj.GetComponent<Text>()).text = entry.Label;
                     break;
                 case FormEntryType.TextField:
 					preset = GameObject.Find("InputPreset");
-                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), parent);
+                    obj = Instantiate(preset, preset.transform.position, new Quaternion(), parent);
 					(obj.GetComponent<InputField>()).onValueChanged.AddListener((v) => { entry.Value = v; FormSaveButton_OnClick(); }); 
                     break;
                 case FormEntryType.Button:
 					preset = GameObject.Find("ButtonPreset");
-                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), parent);
+                    obj = Instantiate(preset, preset.transform.position, new Quaternion(), parent);
                     obj.GetComponentInChildren<Text>().text = entry.Label;
                     break;
                 case FormEntryType.Checkbox:
 					preset = GameObject.Find("CheckboxPreset");
-                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), parent);
+                    obj = Instantiate(preset, preset.transform.position, new Quaternion(), parent);
                     obj.GetComponentInChildren<Text>().text = entry.Label;
 					(obj.GetComponent<Toggle>()).onValueChanged.AddListener((v) => { entry.Value = v.ToString(); FormSaveButton_OnClick(); });
                     break;
                 case FormEntryType.Line:
 					preset = GameObject.Find("LinePreset");
-                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), parent);
+                    obj = Instantiate(preset, preset.transform.position, new Quaternion(), parent);
                     break;
                 case FormEntryType.Select:
 					preset = GameObject.Find("SelectPreset");
-                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), parent);
-                    (obj.GetComponent<Dropdown>()).options.Clear();
-                    foreach (var pair in (entry as Select).Dictionary)
-                    {
-                        (obj.GetComponent<Dropdown>()).options.Add(new Dropdown.OptionData(entry.Value));
-                    }
-				    (obj.GetComponent<Dropdown>()).onValueChanged.AddListener((v) => { entry.Value = (entry as Select).Dictionary.Values.ToList()[v]; FormSaveButton_OnClick(); });
+                    obj = Instantiate(preset, preset.transform.position, new Quaternion(), parent);
+                    var dd = obj.GetComponent<Dropdown>();
+                    dd.options.Clear();
+                    dd.AddOptions((entry as Select).Dictionary.Values.ToList());
+                    dd.RefreshShownValue();
+				    dd.onValueChanged.AddListener((v) => { entry.Value = (entry as Select).Dictionary.Values.ToList()[v]; FormSaveButton_OnClick(); });
                     break;
                 case FormEntryType.Slider:
 					preset = GameObject.Find("SliderPreset");
-                    obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), parent);
+                    obj = Instantiate(preset, preset.transform.position, new Quaternion(), parent);
 					(obj.GetComponent<Slider>()).minValue = (float) (entry as FormSlider).Min;
 					(obj.GetComponent<Slider>()).maxValue = (float) (entry as FormSlider).Max;
 					(obj.GetComponent<Slider>()).onValueChanged.AddListener((v) => { entry.Value = v.ToString(); FormSaveButton_OnClick(); });
@@ -175,7 +173,8 @@ public class UiScript : MonoBehaviour {
                 default:
                     continue;
             }
-			bottomOfFormPosition.y -= preset.GetComponent<RectTransform>().rect.height;
+            obj.transform.localPosition = preset.transform.localPosition + new Vector3(formOffset.x, formOffset.y, 0);
+			formOffset.x += obj.GetComponent<RectTransform>().rect.width;
         }
     }
 

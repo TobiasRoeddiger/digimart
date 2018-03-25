@@ -31,11 +31,11 @@
         Form.Add(new FormEntry(FormEntryType.Label, "Value"));
 
         var select = new Select();
+        select.Add("Price", "Price");
         select.Add("Calories", "Calories");
         select.Add("Fat", "Fat");
         select.Add("Sugar", "Sugar");
         select.Add("Salt", "Salt");
-        select.Add("Price", "Price");
         Form.Add(select, "PropertySelect");
     }
 }
