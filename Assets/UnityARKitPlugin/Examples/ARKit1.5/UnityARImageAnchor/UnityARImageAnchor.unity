@@ -2755,7 +2755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceImage: {fileID: 11400000, guid: 5cd92388dd0f849918ec6d9e2bc1b69c, type: 2}
-  prefabToGenerate: {fileID: 1862032541421190, guid: ba9ab2a778f73427faf35fee8591e378,
+  prefabToGenerate: {fileID: 1585314206405406, guid: b0a69ad7311b9415095cf106d75f5027,
     type: 2}
 --- !u!4 &1024302391
 Transform:
@@ -5199,7 +5199,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000031788884, y: 0.000000011148226}
+  m_AnchoredPosition: {x: -0.000031788884, y: 5.6789424e-11}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &2039742949

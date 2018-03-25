@@ -15,7 +15,11 @@ public class GenerateImageAnchor : MonoBehaviour {
 	[SerializeField]
 	private GameObject prefabToGenerate;
 
+	[SerializeField]
+	private GameObject adToGenerate;
+
 	private GameObject imageAnchorGO;
+	private GameObject adGO;
 
 	// Use this for initialization
 	void Start () {
@@ -30,12 +34,17 @@ public class GenerateImageAnchor : MonoBehaviour {
 	void AddImageAnchor(ARImageAnchor arImageAnchor)
 	{
 		if (arImageAnchor.referenceImageName == referenceImage.imageName) {
-			if (prefabToGenerate.name == "RiegelAd") {
+			if (adToGenerate != null) {
+				Debug.Log ("Generating Ad");
 				Vector3 position = UnityARMatrixOps.GetPosition (arImageAnchor.transform);
-				var newPos = new Vector3 (position.x, position.y + 0.06f, position.z);
-				Quaternion rotation = Quaternion.AngleAxis(30, new Vector3(0, 0, 1));//UnityARMatrixOps.GetRotation (arImageAnchor.transform);
+				Quaternion rotation = UnityARMatrixOps.GetRotation (arImageAnchor.transform);
+				imageAnchorGO = Instantiate<GameObject> (prefabToGenerate, position, rotation);
 
-				imageAnchorGO = Instantiate<GameObject> (prefabToGenerate, newPos, rotation);
+				Vector3 position2 = UnityARMatrixOps.GetPosition (arImageAnchor.transform);
+				var newPos2 = new Vector3 (position.x, position.y + 0.06f, position.z);
+				Quaternion rotation2 = Quaternion.AngleAxis(30, new Vector3(0, 0, 1));//UnityARMatrixOps.GetRotation (arImageAnchor.transform);
+
+				adGO = Instantiate<GameObject> (adToGenerate, newPos2, rotation2);
 			} else {
 				Vector3 position = UnityARMatrixOps.GetPosition (arImageAnchor.transform);
 				Quaternion rotation = UnityARMatrixOps.GetRotation (arImageAnchor.transform);
@@ -43,7 +52,6 @@ public class GenerateImageAnchor : MonoBehaviour {
 				imageAnchorGO = Instantiate<GameObject> (prefabToGenerate, position, rotation);
 			}
 		}
-		UpdateColor ();
 	}
 
 	void UpdateImageAnchor(ARImageAnchor arImageAnchor)
@@ -62,7 +70,6 @@ public class GenerateImageAnchor : MonoBehaviour {
 				imageAnchorGO.transform.rotation = UnityARMatrixOps.GetRotation (arImageAnchor.transform);
 			}
 		}
-		UpdateColor ();
 	}
 
 	void RemoveImageAnchor(ARImageAnchor arImageAnchor)
@@ -84,13 +91,28 @@ public class GenerateImageAnchor : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		UpdateColor ();
 	}
 
 	void UpdateColor() {
 		if (_product == null || imageAnchorGO == null)
 			return;
 
+
 		var color = UiScript._currentModule.Filter.CalculateOverlayColor (_product);
+
+		if (color.a == 0f && color.r == 1f && color.g == 1f && color.b == 1f) {
+			imageAnchorGO.SetActive (false);
+		} else if (color.r == 0.95f && color.g == 0.9f && color.b == 0.26f && color.a == 0.4f) {
+			imageAnchorGO.SetActive (false);
+			if (adGO != null)
+				adGO.SetActive (true);
+		} else {
+			imageAnchorGO.SetActive (true);
+			if (adGO != null)
+				adGO.SetActive (false);
+		}
+		
 		Debug.Log ("Updating Color: " + color.ToString());
 
 

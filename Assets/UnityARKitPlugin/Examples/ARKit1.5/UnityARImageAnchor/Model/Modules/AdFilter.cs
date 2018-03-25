@@ -13,8 +13,7 @@ public class AdFilter : IDigiFilter
 
     private static readonly IList<string> Ads = new List<string>()
     {
-        "Riegel",
-        "Muesli"
+        "Riegel"
     };
 
 
