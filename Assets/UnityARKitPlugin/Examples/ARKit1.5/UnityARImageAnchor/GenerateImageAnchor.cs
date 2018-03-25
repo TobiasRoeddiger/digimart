@@ -7,7 +7,6 @@ using System.Linq;
 public class GenerateImageAnchor : MonoBehaviour {
 
 	private ProductStore _store = new ProductStore();
-	private IDigiModule _digiModule = UiScript._currentModule;
 	private Product _product;
 
 	[SerializeField]
@@ -91,7 +90,8 @@ public class GenerateImageAnchor : MonoBehaviour {
 		if (_product == null || imageAnchorGO == null)
 			return;
 
-		var color = _digiModule.Filter.CalculateOverlayColor (_product);
+		var color = UiScript._currentModule.Filter.CalculateOverlayColor (_product);
+		Debug.Log ("Updating Color: " + color.ToString());
 
 
 		Debug.Log (color.ToString());

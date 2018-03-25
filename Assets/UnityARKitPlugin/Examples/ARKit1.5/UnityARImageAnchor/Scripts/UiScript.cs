@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UiScript : MonoBehaviour {
 
-	public static IDigiModule _currentModule = new SearchModule();
+	public static IDigiModule _currentModule = new InterpolatingModule();
 
     private float _lerpTime = 1f;
     private float _currentLerpTime = 1f;
