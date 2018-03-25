@@ -342,7 +342,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50.100006, y: -188.00002}
+  m_AnchoredPosition: {x: -50.100006, y: -202}
   m_SizeDelta: {x: 100, y: 376}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &50705332
@@ -1787,7 +1787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceImage: {fileID: 11400000, guid: e0e263be894aa4a5faac1f709cdb3f45, type: 2}
-  prefabToGenerate: {fileID: 1090266674894604, guid: f20b8a2e6b41046da9b2bfacb741eff7,
+  prefabToGenerate: {fileID: 1483093577405612, guid: 19e0bc08b0aa746ddbaa4236623c09d0,
     type: 2}
   adToGenerate: {fileID: 0}
 --- !u!4 &685543979
@@ -1803,11 +1803,81 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &698639417 stripped
+--- !u!1 &698639416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1090266674894604, guid: f20b8a2e6b41046da9b2bfacb741eff7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1200471935}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 698639417}
+  - component: {fileID: 698639419}
+  - component: {fileID: 698639418}
+  m_Layer: 0
+  m_Name: cornflakes4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &698639417
 Transform:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 4617662211457242, guid: f20b8a2e6b41046da9b2bfacb741eff7,
     type: 2}
   m_PrefabInternal: {fileID: 1200471935}
+  m_GameObject: {fileID: 698639416}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 152131192}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &698639418
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 23795963834470042, guid: f20b8a2e6b41046da9b2bfacb741eff7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1200471935}
+  m_GameObject: {fileID: 698639416}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 01cda4307874841269609ff989278939, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &698639419
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 33235366278217280, guid: f20b8a2e6b41046da9b2bfacb741eff7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1200471935}
+  m_GameObject: {fileID: 698639416}
+  m_Mesh: {fileID: 4300000, guid: 624650d9da38a443e93376f9de8e5878, type: 3}
 --- !u!1 &884106935
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,10 +2251,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -2346,10 +2416,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -2943,10 +3013,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -3834,10 +3904,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0
