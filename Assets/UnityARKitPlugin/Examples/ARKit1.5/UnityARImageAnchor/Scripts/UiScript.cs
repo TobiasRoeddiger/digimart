@@ -6,24 +6,28 @@ using UnityEngine.UI;
 
 public class UiScript : MonoBehaviour {
 
-    private IDigiModule _currentModule = new SearchModule();
+	public static IDigiModule _currentModule = new SearchModule();
 
     private float _lerpTime = 1f;
     private float _currentLerpTime = 1f;
-    private Vector3 _formTopPosition;
-    private Vector3 _formBottomPosition;
-    private Vector3 _formStartPosition;
-    private Vector3 _formEndPosition;
+    private Vector2 _formTopPosition;
+    private Vector2 _formBottomPosition;
+    private Vector2 _formStartPosition;
+    private Vector2 _formEndPosition;
 
     // Use this for initialization
     void Start ()
 	{
-	    foreach (Transform child in transform)
+		foreach (Transform child in GameObject.Find("ObjectStore").transform)
 	    {
 	        child.gameObject.SetActive(false);
 	    }
-	    _formBottomPosition = GetComponent("FormPanel").transform.position;
-	    _formTopPosition = _formBottomPosition + new Vector3(0, 375, 0);
+
+
+		var canv = GameObject.Find ("UiCanvas").GetComponent<RectTransform> ().anchoredPosition;
+		var fp = GameObject.Find ("FormPanel").GetComponent<RectTransform> ().anchoredPosition;
+		_formBottomPosition =  fp;
+		_formTopPosition = new Vector2(fp.x, fp.y + 375);
 	}
 	
 	// Update is called once per frame
@@ -39,27 +43,32 @@ public class UiScript : MonoBehaviour {
 	        //lerp Form panel
 	        var t = _currentLerpTime / _lerpTime;
 	        t = t * t * (3f - 2f * t);
-	        transform.position = Vector3.Lerp(_formStartPosition, _formEndPosition, t);
+			GameObject.Find("FormPanel").GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(_formStartPosition, _formEndPosition, t);
+			Debug.Log ("Y Pos: " + GameObject.Find("FormPanel").transform.position.y);
         }
     }
 
     public void AdButton_OnClick(string sceneName)
     {
+		Debug.Log ("Ad Button Clicked");
         _currentModule = new AdModule();
         OpenForm();
     }
     public void InterpolatingButton_OnClick(string sceneName)
     {
+		Debug.Log ("Interpolating Button Clicked");
         _currentModule = new InterpolatingModule();
         OpenForm();
     }
     public void SearchButton_OnClick(string sceneName)
     {
+		Debug.Log ("Search Button Clicked");
         _currentModule = new SearchModule();
         OpenForm();
     }
     public void AllergyButton_OnClick(string sceneName)
     {
+		Debug.Log ("Allergy Button Clicked");
         _currentModule = new AllergyModule();
         OpenForm();
     }
@@ -76,9 +85,11 @@ public class UiScript : MonoBehaviour {
 
     public void OpenForm()
     {
-        var formObject = GetComponent("FormPanel") as RectTransform;
-        if (formObject == null)
-            return;
+		var formObject = GameObject.Find("FormPanel");
+		if (formObject == null) {
+			Debug.Log ("Returning");
+			return;
+		}
 
         _formStartPosition = _formBottomPosition;
         _formEndPosition = _formTopPosition;
@@ -86,63 +97,62 @@ public class UiScript : MonoBehaviour {
 
         var bottomOfFormPosition = formObject.transform.position;
 
+		Debug.Log ("Number of entries: " + _currentModule.Form.GetEntries().Count);
+
         foreach (var entry in _currentModule.Form.GetEntries())
         {
-            Component preset = null;
-            Component obj = null;
+			Debug.Log ("Writing entry.");
+			GameObject preset = null;
+			GameObject obj = null;
             switch (entry.Type)
             {
                 case FormEntryType.Label:
-                    preset = GetComponent("LabelPreset");
+					preset = GameObject.Find("LabelPreset");
                     obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
-                    (obj as Text).text = entry.Label;
+					(obj.GetComponent<Text>()).text = entry.Label;
                     break;
                 case FormEntryType.TextField:
-                    preset = GetComponent("InputPreset");
+					preset = GameObject.Find("InputPreset");
                     obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
-                    (obj as InputField).onValueChanged.AddListener((v) => { entry.Value = v; }); 
+					(obj.GetComponent<InputField>()).onValueChanged.AddListener((v) => { entry.Value = v; }); 
                     break;
                 case FormEntryType.Button:
-                    preset = GetComponent("ButtonPreset");
+					preset = GameObject.Find("ButtonPreset");
                     obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
                     obj.GetComponentInChildren<Text>().text = entry.Label;
                     break;
                 case FormEntryType.Checkbox:
-                    preset = GetComponent("CheckboxPreset");
+					preset = GameObject.Find("CheckboxPreset");
                     obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
                     obj.GetComponentInChildren<Text>().text = entry.Label;
-                    (obj as Toggle).onValueChanged.AddListener((v) => { entry.Value = v.ToString(); });
+					(obj.GetComponent<Toggle>()).onValueChanged.AddListener((v) => { entry.Value = v.ToString(); });
                     break;
                 case FormEntryType.Line:
-                    preset = GetComponent("LinePreset");
+					preset = GameObject.Find("LinePreset");
                     obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
                     break;
                 case FormEntryType.Select:
-                    preset = GetComponent("SelectPreset");
+					preset = GameObject.Find("SelectPreset");
                     obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
                     // TODO: fill chilren
-                    (obj as Dropdown).onValueChanged.AddListener((v) => { entry.Value = (entry as Select).Dictionary.Values.ToList()[v]; });
+				(obj.GetComponent<Dropdown>()).onValueChanged.AddListener((v) => { entry.Value = (entry as Select).Dictionary.Values.ToList()[v]; });
                     break;
                 case FormEntryType.Slider:
-                    preset = GetComponent("SliderPreset");
+					preset = GameObject.Find("SliderPreset");
                     obj = Instantiate(preset, bottomOfFormPosition, new Quaternion(), formObject.transform);
-                    (obj as Slider).minValue = (float) (entry as FormSlider).Min;
-                    (obj as Slider).maxValue = (float) (entry as FormSlider).Max;
-                    (obj as Slider).onValueChanged.AddListener((v) => { entry.Value = v; });
+					(obj.GetComponent<Slider>()).minValue = (float) (entry as FormSlider).Min;
+					(obj.GetComponent<Slider>()).maxValue = (float) (entry as FormSlider).Max;
+					(obj.GetComponent<Slider>()).onValueChanged.AddListener((v) => { entry.Value = v.ToString(); });
                     break;
                 default:
                     continue;
             }
-            bottomOfFormPosition.y -= (preset as RectTransform).sizeDelta[1] - 10;
+			bottomOfFormPosition.y -= (preset.GetComponent<RectTransform>()).sizeDelta[1] - 10;
         }
     }
 
     public void CloseForm()
     {
-        var formObject = GetComponent("FormPanel") as RectTransform;
-        if (formObject == null)
-            return;
-        
         _formStartPosition = _formTopPosition;
         _formEndPosition = _formBottomPosition;
         _currentLerpTime = 0f;

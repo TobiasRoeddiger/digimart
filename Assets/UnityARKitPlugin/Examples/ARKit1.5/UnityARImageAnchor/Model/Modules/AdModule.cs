@@ -18,5 +18,6 @@
     
     private void FillForm()
     {
+		Form = new Form ();
     }
 }

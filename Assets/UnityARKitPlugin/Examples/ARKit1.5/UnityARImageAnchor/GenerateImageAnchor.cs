@@ -7,7 +7,7 @@ using System.Linq;
 public class GenerateImageAnchor : MonoBehaviour {
 
 	private ProductStore _store = new ProductStore();
-	private IDigiModule _digiModule = new InterpolatingModule ();//new AllergyModule ();
+	private IDigiModule _digiModule = UiScript._currentModule;
 	private Product _product;
 
 	[SerializeField]
