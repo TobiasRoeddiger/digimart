@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 class AllergyModule : IDigiModule
 {
@@ -26,9 +27,10 @@ class AllergyModule : IDigiModule
         foreach (var pair in _SELECTORS)
         {
             var value = Form.GetEntry(pair.Key).Value;
-            if (bool.Parse(value))
+            if (value != null && bool.Parse(value))
                 list.Add(pair.Value);
         }
+        Debug.Log("List Length: " + list.Count);
 
         CreateFilterForSelectors(list);
     }
@@ -42,7 +44,6 @@ class AllergyModule : IDigiModule
     private void FillForm()
     {
         Form = new Form();
-        Form.Add(new FormEntry(FormEntryType.Label, "Allergies"), "AllergyLabel");
         Form.Add(new FormEntry(FormEntryType.Checkbox, "Milk"), "Milk");
         Form.Add(new FormEntry(FormEntryType.Checkbox, "Nuts"), "Nuts");
     }

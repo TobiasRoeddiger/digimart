@@ -26,7 +26,6 @@
     private void FillForm()
     {
         Form = new Form();
-        Form.Add(new FormEntry(FormEntryType.Label, "Search Terms"), "SearchLabel");
         Form.Add(new FormEntry(FormEntryType.TextField), "Search");
     }
 }
