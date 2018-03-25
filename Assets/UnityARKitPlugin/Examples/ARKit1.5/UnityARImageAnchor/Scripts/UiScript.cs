@@ -38,7 +38,6 @@ public class UiScript : MonoBehaviour {
 	        var t = _currentLerpTime / _LERP_TIME;
 	        t = t * t * (3f - 2f * t);
 			GameObject.Find("FormPanel").GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(_formStartPosition, _formEndPosition, t);
-			Debug.Log ("Y Pos: " + GameObject.Find("FormPanel").transform.position.y);
         }
     }
 
@@ -47,6 +46,7 @@ public class UiScript : MonoBehaviour {
 		Debug.Log ("Ad Button Clicked");
         _currentModule = new AdModule();
         HighlightButton(EventSystem.current.currentSelectedGameObject);
+        GameObject.Find("FormPanel").GetComponent<RectTransform>().anchoredPosition = _formBottomPosition;
         //OpenForm();
     }
     public void InterpolatingButton_OnClick(string sceneName)
