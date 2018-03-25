@@ -2238,7 +2238,8 @@ MonoBehaviour:
   referenceImage: {fileID: 11400000, guid: 5cd92388dd0f849918ec6d9e2bc1b69c, type: 2}
   prefabToGenerate: {fileID: 1585314206405406, guid: b0a69ad7311b9415095cf106d75f5027,
     type: 2}
-  adToGenerate: {fileID: 0}
+  adToGenerate: {fileID: 1862032541421190, guid: ba9ab2a778f73427faf35fee8591e378,
+    type: 2}
 --- !u!4 &1024302391
 Transform:
   m_ObjectHideFlags: 0
