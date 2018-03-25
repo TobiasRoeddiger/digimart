@@ -28,8 +28,6 @@
     private void FillForm()
     {
         Form = new Form();
-        Form.Add(new FormEntry(FormEntryType.Label, "Value"));
-
         var select = new Select();
         select.Add("Price", "Price");
         select.Add("Calories", "Calories");
