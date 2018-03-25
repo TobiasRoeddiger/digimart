@@ -216,9 +216,9 @@ PlayerSettings:
   tvOSTopShelfImageWideLayers: []
   tvOSTopShelfImageWideLayers2x: []
   iOSLaunchScreenType: 1
-  iOSLaunchScreenPortrait: {fileID: 2800000, guid: 0a17a37c56609564c97f84dbabb28a44,
+  iOSLaunchScreenPortrait: {fileID: 2800000, guid: e8019a67dc8ed41e3b82108626eb3c27,
     type: 3}
-  iOSLaunchScreenLandscape: {fileID: 2800000, guid: 0a17a37c56609564c97f84dbabb28a44,
+  iOSLaunchScreenLandscape: {fileID: 2800000, guid: 77249d06de4da4385902fe1dfef65b76,
     type: 3}
   iOSLaunchScreenBackgroundColor:
     serializedVersion: 2
@@ -845,7 +845,6 @@ PlayerSettings:
   XboxOneSplashScreen: {fileID: 0}
   XboxOneAllowedProductIds: []
   XboxOnePersistentLocalStorageSize: 0
-  XboxOneXTitleMemory: 8
   xboxOneScriptCompiler: 0
   vrEditorSettings:
     daydream:

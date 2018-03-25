@@ -26,6 +26,9 @@ public class SearchFilter : IDigiFilter
 
     public Color CalculateOverlayColor(Product product)
     {
+		if (_tags.Length == 0)
+			return _NOTFOUND_COLOR;
+		
         if (_SELECTORS.Any(selector => _tags.Any(tag => selector(product).ToLowerInvariant().Contains(tag.ToLowerInvariant()))))
         {
             return _FOUND_COLOR;

@@ -57,14 +57,13 @@ public class GenerateImageAnchor : MonoBehaviour {
 	void UpdateImageAnchor(ARImageAnchor arImageAnchor)
 	{
 		if (arImageAnchor.referenceImageName == referenceImage.imageName) {
-			if (imageAnchorGO.name == "RiegelAd(Clone)") {
-				
-				Debug.Log ("RiegelStuff");
-
+			if (imageAnchorGO.name == "Riegel(Clone)") {
 				var pos = UnityARMatrixOps.GetPosition (arImageAnchor.transform);
-				Debug.Log (pos.x);
 				var newPos = new Vector3((float)(pos.x + 0.0f), (float)(pos.y + 0.06f), (float)(pos.z + 0.0f));
-				imageAnchorGO.transform.position = newPos;
+				adGO.transform.position = newPos;
+
+				imageAnchorGO.transform.position = UnityARMatrixOps.GetPosition (arImageAnchor.transform);
+				imageAnchorGO.transform.rotation = UnityARMatrixOps.GetRotation (arImageAnchor.transform);
 			} else {
 				imageAnchorGO.transform.position = UnityARMatrixOps.GetPosition (arImageAnchor.transform);
 				imageAnchorGO.transform.rotation = UnityARMatrixOps.GetRotation (arImageAnchor.transform);

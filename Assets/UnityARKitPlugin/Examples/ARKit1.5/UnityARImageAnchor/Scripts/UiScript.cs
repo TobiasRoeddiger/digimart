@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class UiScript : MonoBehaviour {
 
-	public static IDigiModule _currentModule = new InterpolatingModule();
+	public static IDigiModule _currentModule = new SearchModule ();
 
-    private const float _LERP_TIME = 1f;
+    private const float _LERP_TIME = 0.6f;
     private float _currentLerpTime = 1f;
     private Vector2 _formTopPosition;
     private Vector2 _formBottomPosition;
